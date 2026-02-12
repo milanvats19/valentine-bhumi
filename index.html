@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine Bhumi ❤️</title>
+<style>
+body{font-family:Arial;text-align:center;background:black;color:white;margin:0;height:100vh;display:flex;justify-content:center;align-items:center;overflow:hidden;}
+.page{display:none;width:100%;padding:20px;}
+input{padding:10px;border-radius:10px;border:none;}
+button{padding:12px 26px;border:none;border-radius:30px;font-size:18px;cursor:pointer;margin:10px;}
+.yes{background:red;color:white;}
+.no{background:white;color:red;border:2px solid red;}
+.bus{position:absolute;bottom:100px;left:-300px;width:220px;transition:3s ease;}
+.giftBox{width:140px;margin:15px;cursor:pointer;display:inline-block;}
+.giftBox img{width:100%;}
+.photo{margin-top:20px;width:220px;border-radius:15px;box-shadow:0 0 25px pink;}
+.ring{width:140px;animation:ringPop 1s infinite alternate;}
+@keyframes ringPop{from{transform:scale(1);}to{transform:scale(1.2);}}
+.heart{position:fixed;bottom:-40px;font-size:22px;animation:float 6s linear infinite;}
+@keyframes float{0%{transform:translateY(0);opacity:1;}100%{transform:translateY(-100vh);opacity:0;}}
+</style>
+</head>
+<body>
+
+<div id="lock" class="page" style="display:block;">
+<h2>🔒 Enter Bhumi’s nickname</h2>
+<input id="pass" placeholder="Nickname..."><br><br>
+<button class="yes" onclick="unlock()">Unlock 💖</button>
+<p id="wrong"></p>
+</div>
+
+<div id="p1" class="page">
+<h2 id="typing"></h2>
+<button class="yes" onclick="busPage()">See your surprise</button>
+</div>
+
+<div id="busPage" class="page">
+<h2>Special delivery for Bhumi 🚍</h2>
+<img id="bus" class="bus" src="https://cdn-icons-png.flaticon.com/512/1995/1995507.png">
+</div>
+
+<div id="gifts" class="page">
+<h2>Open your gifts Kaju 🎁</h2>
+<div class="giftBox" onclick="show('gift1')">
+  <img src="https://cdn-icons-png.flaticon.com/512/833/833472.png">
+</div>
+<div class="giftBox" onclick="show('gift2')">
+  <img src="https://cdn-icons-png.flaticon.com/512/833/833472.png">
+</div>
+<div class="giftBox" onclick="show('gift3')">
+  <img src="https://cdn-icons-png.flaticon.com/512/833/833472.png">
+</div>
+</div>
+
+<div id="gift1" class="page">
+<h2>Everything I Love About You 💖</h2>
+<img class="photo" src="bhumi.jpg">
+<p>Bhumi, your smile, your voice, your anger, your cuteness— everything about you drives me crazy in the best way ❤️</p>
+<button class="yes" onclick="show('proposal')">Next</button>
+</div>
+
+<div id="gift2" class="page">
+<h2>Your Beautiful Eyes 👀</h2>
+<img class="photo" src="eyes.jpg">
+<p>Your eyes are the first thing I notice every time. They’re calm, deep, and full of softness. I could honestly look into them all day.</p>
+<button class="yes" onclick="show('proposal')">Next</button>
+</div>
+
+<div id="gift3" class="page">
+<h2>You in this look 😍</h2>
+<img class="photo" src="full.jpg">
+<p>This picture of yours is just stunning. Everything about you looks absolutely beautiful here.</p>
+<button class="yes" onclick="show('proposal')">Next</button>
+</div>
+
+<div id="proposal" class="page">
+<h2>Bhumi 💍 Will You Be My Valentine?</h2>
+<img class="ring" src="https://cdn-icons-png.flaticon.com/512/616/616490.png"><br>
+<button class="yes" onclick="finalYes()">YES 😍</button>
+<button class="no" onclick="insult()">NO</button>
+</div>
+
+<div id="final" class="page">
+<h1>YIPPIEEEEE 💕</h1>
+<h2>Kaju said YES 😭❤️</h2>
+</div>
+
+<script>
+function unlock(){
+ let p=document.getElementById("pass").value.toLowerCase();
+ if(p=="kaju"){show("p1");startTyping();}
+ else{document.getElementById("wrong").innerText="Wrong 😏 try again";}
+}
+let text="Hey Kaju 💕 I made something special for you...";
+let i=0;
+function startTyping(){
+ let t=setInterval(()=>{
+   document.getElementById("typing").innerText=text.slice(0,i++);
+   if(i>text.length) clearInterval(t);
+ },70);
+}
+function show(id){
+ document.querySelectorAll(".page").forEach(p=>p.style.display="none");
+ document.getElementById(id).style.display="block";
+}
+function busPage(){
+ show("busPage");
+ let bus=document.getElementById("bus");
+ bus.style.left="-300px";
+ setTimeout(()=>bus.style.left="50%",100);
+ setTimeout(()=>bus.style.transform="translateX(-50%)",100);
+ setTimeout(()=>show("gifts"),3200);
+}
+let insults=["Bhumi stop playing 😤","Kaju you know you love me 😏","Say yes or I’ll steal your chocolates 🍫","Don’t break my heart 😭","I’m telling your mom 😂"];
+function insult(){alert(insults[Math.floor(Math.random()*insults.length)]);}
+function finalYes(){show("final");startHearts();}
+function startHearts(){
+ for(let i=0;i<120;i++){
+  let h=document.createElement("div");
+  h.className="heart";
+  h.innerHTML="❤️";
+  h.style.left=Math.random()*100+"vw";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),6000);
+ }
+}
+</script>
+</body>
+</html>
